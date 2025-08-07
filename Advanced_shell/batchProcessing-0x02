@@ -16,5 +16,6 @@ do
 		echo "Saved data to pokemon_data/${pokemon}.json ✅"
 		
 	fi
+	sleep 1
 done
 
