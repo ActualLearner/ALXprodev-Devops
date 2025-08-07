@@ -1,0 +1,13 @@
+#!/bin/bash
+for pokemon in Bulbasaur Ivysaur Venusaur Charmander Charmeleon;
+do 	
+	echo Fetching data for ${pokemon}...
+	./apiAutomation-0x00 $pokemon
+	
+	if [ $? -eq 0 ]; then
+		echo "Saved data to pokemon_data/${pokemon}.json ✅"
+	else
+		echo "Failed to fetch ${pokemon}. Check errors in errors.txt"
+	fi
+done
+
