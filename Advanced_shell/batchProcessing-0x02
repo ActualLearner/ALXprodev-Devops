@@ -1,13 +1,20 @@
 #!/bin/bash
-for pokemon in Bulbasaur Ivysaur Venusaur Charmander Charmeleon;
+for pokemon in bulbasaur ivysaur venusaur charmander charmeleon;
 do 	
 	echo Fetching data for ${pokemon}...
-	./apiAutomation-0x00 $pokemon
-	
-	if [ $? -eq 0 ]; then
-		echo "Saved data to pokemon_data/${pokemon}.json ✅"
-	else
+	response=$(curl -s -w "%{http_code}" -o temp.json "https://pokeapi.co/api/v2/pokemon/${pokemon}")
+
+	# Check if status is not 200
+	if [ "$response" != "200" ]; then
+  		echo "❌ Request failed with status $response"
+  		cat temp.json >> errors.txt
 		echo "Failed to fetch ${pokemon}. Check errors in errors.txt"
+	else
+  		echo "✅ Request successful"
+  		mkdir -p pokemon_data
+  		cat temp.json > "pokemon_data/${pokemon}.json"
+		echo "Saved data to pokemon_data/${pokemon}.json ✅"
+		
 	fi
 done
 
