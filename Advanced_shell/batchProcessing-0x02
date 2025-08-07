@@ -14,7 +14,7 @@ do
   		mkdir -p pokemon_data
   		cat temp.json > "pokemon_data/${pokemon}.json"
 		echo "Saved data to pokemon_data/${pokemon}.json ✅"
-		
+		rm temp.json	
 	fi
 	sleep 1
 done
